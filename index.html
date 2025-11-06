@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AQUILO MANAGEMENT SRL — Generare & Distribuție Energie Electrică</title>
+  <meta name="description" content="AQUILO MANAGEMENT SRL — soluții pentru generare, transport și distribuție de energie electrică, modernizarea rețelelor și digitalizarea utilităților în România." />
+  <meta name="theme-color" content="#0e1a2b" />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <style>
+    :root{
+      --brand:#f5a623;
+      --brand-600:#e99610;
+      --dark:#0e1a2b;
+      --dark-2:#12243a;
+      --muted:#6b7a90;
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --ok:#00b67a;
+      --warn:#ffb200;
+      --radius:14px;
+      --shadow:0 10px 30px rgba(14,26,43,.15);
+      --shadow-soft:0 6px 20px rgba(14,26,43,.08);
+      --gradient:linear-gradient(180deg, rgba(14,26,43,.70) 0%, rgba(14,26,43,.65) 30%, rgba(14,26,43,.7) 100%);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0b1220;background:var(--bg);scroll-behavior:smooth}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    /* Top info bar */
+    .topbar{
+      background:#eef2f7;color:#3b4a62;font-size:.9rem
+    }
+    .container{
+      width:min(1200px, 92vw);
+      margin:0 auto;
+    }
+    .topbar .row{
+      display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;
+    }
+    .social a{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;background:#fff;margin-left:.35rem;box-shadow:var(--shadow-soft)}
+    .social svg{width:14px;height:14px;fill:#3b4a62}
+    /* Header */
+    header{
+      background:#fff;box-shadow:var(--shadow-soft);position:sticky;top:0;z-index:20
+    }
+    nav{
+      display:flex;align-items:center;justify-content:space-between;padding:1rem 0;
+    }
+    .brand{display:flex;align-items:center;gap:.6rem}
+    .logo{
+      width:38px;height:38px;border-radius:10px;background:conic-gradient(from 180deg at 50% 50%, #1b2a44, #203452);display:grid;place-items:center;color:#fff;box-shadow:var(--shadow)
+    }
+    .logo svg{width:22px;height:22px}
+    .brand b{font-size:1.2rem;letter-spacing:.3px}
+    .menu{display:flex;gap:1.1rem;font-weight:600}
+    .menu a{padding:.55rem .85rem;border-radius:10px;color:#2b3b53}
+    .menu a:hover{background:#f1f4f8}
+    .cta{
+      display:flex;align-items:center;gap:.75rem
+    }
+    .badge{
+      display:flex;align-items:center;gap:.5rem;background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:.55rem .8rem;box-shadow:var(--shadow-soft)
+    }
+    .badge .dot{width:10px;height:10px;border-radius:999px;background:var(--ok)}
+    .cta .btn{
+      background:var(--brand);color:#111;border:none;padding:.7rem 1rem;border-radius:12px;font-weight:700;box-shadow:0 6px 16px rgba(245,166,35,.35);transition:.2s;
+    }
+    .cta .btn:hover{background:var(--brand-600);transform:translateY(-1px)}
+    /* Hero */
+    .hero{
+      position:relative;min-height:72vh;display:grid;place-items:center;color:#fff;text-align:left;overflow:hidden;background:#0e1a2b;
+    }
+    .hero::before{
+      content:"";position:absolute;inset:0;background-image:var(--gradient), url('https://images.unsplash.com/photo-1542332213-6d736d7e8a0c?q=80&w=1920&auto=format&fit=crop');
+      background-size:cover;background-position:center;filter:saturate(1) contrast(1.02);
+      will-change:transform;
+    }
+    .hero .inner{position:relative;padding:5rem 0;z-index:1}
+    .kicker{
+      display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.1);backdrop-filter:blur(6px);
+      border:1px solid rgba(255,255,255,.25);padding:.4rem .75rem;border-radius:999px;font-weight:600;letter-spacing:.2px
+    }
+    .kicker svg{width:16px;height:16px}
+    h1{font-size:3rem;line-height:1.1;margin:.9rem 0}
+    .lead{font-size:1.15rem;color:#e6edf6;max-width:850px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.2rem}
+    .btn-primary{background:var(--brand);color:#151b26;border:none;padding:.9rem 1.1rem;border-radius:12px;font-weight:800}
+    .btn-outline{background:transparent;border:2px solid rgba(255,255,255,.6);color:#fff;padding:.85rem 1.1rem;border-radius:12px;font-weight:700}
+    .btn-outline:hover{background:rgba(255,255,255,.1)}
+    /* Sections */
+    section{padding:5rem 0;background:var(--bg)}
+    .section-header{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:2rem}
+    .eyebrow{font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8a99b2;font-size:.85rem}
+    .title{font-size:2rem;margin:.35rem 0 .6rem 0;color:#14243b}
+    .subtitle{color:#52617a;max-width:880px}
+    .grid{display:grid;gap:1.2rem}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width: 960px){ .grid-3,.grid-2 {grid-template-columns:1fr}}
+    .card{
+      background:var(--card);border-radius:var(--radius);padding:1.2rem;border:1px solid #e6ebf2;box-shadow:var(--shadow-soft)
+    }
+    .card h3{margin:.2rem 0 .4rem 0}
+    .icon{
+      width:42px;height:42px;border-radius:12px;background:#f7f9fc;display:grid;place-items:center;border:1px solid #e9eef5;margin-bottom:.45rem
+    }
+    .icon svg{width:22px;height:22px;fill:#203452}
+    .list{margin:0;padding-left:1.1rem;color:#425472}
+    .list li{margin:.4rem 0}
+    /* Stripe / differentiation section */
+    .stripe{background:#0f1e33;color:#e8eef7}
+    .stripe h2{color:#fff}
+    .stripe .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+    /* Process */
+    .step{display:flex;gap:1rem;align-items:flex-start}
+    .step .num{
+      width:42px;height:42px;border-radius:999px;background:var(--brand);display:grid;place-items:center;font-weight:900
+    }
+    .arrow{height:34px;align-self:center;opacity:.65}
+    /* Contact modal */
+    .modal-backdrop{
+      position:fixed;inset:0;background:rgba(10,20,35,.55);display:none;place-items:center;padding:1rem;z-index:120
+    }
+    .modal{width:min(720px, 96vw);background:#fff;border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+    .modal header{background:#0f1e33;color:#fff;box-shadow:none;padding:1rem 1.2rem}
+    .modal .content{padding:1.2rem}
+    .close{
+      border:none;background:transparent;color:#fff;font-size:1.6rem;line-height:1;cursor:pointer
+    }
+    form label{display:block;font-weight:700;color:#2a3a53;margin:.6rem 0 .35rem}
+    form input, form textarea, form select{
+      width:100%;padding:.75rem;border:1px solid #d8e0ea;border-radius:10px;background:#fdfefe
+    }
+    textarea{min-height:120px}
+    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    @media (max-width: 720px){ .form-grid{grid-template-columns:1fr}}
+    .checkbox{display:flex;gap:.6rem;align-items:flex-start;margin:.8rem 0}
+    .checkbox input{width:18px;height:18px;margin-top:.2rem}
+    .submit{display:flex;gap:.8rem;align-items:center}
+    .submit .btn-primary{box-shadow:0 8px 18px rgba(245,166,35,.3)}
+    .notice{font-size:.9rem;color:#5a6a86}
+    /* Success toast */
+    .toast{
+      position:fixed;right:18px;bottom:18px;background:#091629;color:#e8fbf3;border:1px solid rgba(0,182,122,.35);box-shadow:var(--shadow);padding:.85rem 1rem;border-radius:12px;display:none;z-index:130
+    }
+    /* Footer */
+    footer{background:#0f1e33;color:#b9c6da;padding:2rem 0;margin-top:2rem}
+    footer a{color:#fff;text-decoration:underline}
+    .contact-card{display:grid;grid-template-columns:2fr 1fr;gap:1rem}
+    @media (max-width:900px){.contact-card{grid-template-columns:1fr}}
+    /* Accessibility helpers */
+    .sr-only{position:absolute !important;left:-9999px !important;top:auto !important;width:1px !important;height:1px !important;overflow:hidden}
+  </style>
+</head>
+<body>
+  <!-- Informative top bar -->
+  <div class="topbar" aria-label="bara superioară informativă">
+    <div class="container">
+      <div class="row">
+        <div>Program operațional: <strong>06:00 – 20:00</strong> | Operăm la nivel național pe rețele de medie și înaltă tensiune</div>
+        <div class="social" aria-label="rețele sociale">
+          <a href="#" aria-label="LinkedIn (deschis curând)" title="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.96 0-1.73-.78-1.73-1.73 0-.96.78-1.73 1.73-1.73s1.73.78 1.73 1.73-.77 1.73-1.73 1.73zm13.5 11.27h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-10h2.88v1.36h.04c.4-.76 1.38-1.56 2.85-1.56 3.05 0 3.61 2.01 3.61 4.63v5.57z"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube (deschis curând)" title="YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2s-.2-1.6-.8-2.3c-.7-.8-1.5-.8-1.9-.8-2.7-.2-6.8-.2-6.8-.2h-.1s-4.1 0-6.8.2c-.4 0-1.2 0-1.9.8-.6.7-.8 2.3-.8 2.3S2 8.1 2 9.9v1.7c0 1.8.2 3.7.2 3.7s.2 1.6.8 2.3c.7.8 1.7.8 2.1.9 1.5.1 6.6.2 6.6.2s4.1 0 6.8-.2c.4 0 1.2 0 1.9-.8.6-.7.8-2.3.8-2.3s.2-1.8.2-3.7V9.9c0-1.8-.2-3.7-.2-3.7zM9.8 13.8V8.6l5.3 2.6-5.3 2.6z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header role="banner" aria-label="navigație principală">
+    <div class="container">
+      <nav>
+        <a class="brand" href="#acasa" aria-label="AQUILO MANAGEMENT SRL">
+          <span class="logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path fill="#fff" d="M12 2l9 4v6c0 5-4 9-9 10-5-1-9-5-9-10V6l9-4zm0 3.2L6 7.6v4.6c0 3.7 2.7 6.9 6 7.6 3.3-.7 6-4 6-7.6V7.6l-6-2.4z"/><circle cx="12" cy="12" r="3.2"/></svg>
+          </span>
+          <b>Aquilo Management</b>
+        </a>
+        <div class="menu" role="navigation" aria-label="linkuri către secțiuni">
+          <a href="#acasa">Acasă</a>
+          <a href="#despre">Cine suntem</a>
+          <a href="#servicii">Soluții</a>
+          <a href="#diferenta">De ce Aquilo</a>
+          <a href="#proces">Cum lucrăm</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="cta">
+          <div class="badge" aria-label="stare operațională">
+            <span class="dot" aria-hidden="true"></span>
+            <span>Rețele în monitorizare 24/7</span>
+          </div>
+          <button class="btn" type="button" data-open-modal="contact">Ai întrebări?</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="acasa" class="hero" aria-label="ecran principal">
+    <div class="container inner">
+      <div class="kicker" aria-label="promisiune brand">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 2L2 7l10 5 10-5-10-5zm0 7L2 4l10 5 10-5-10 5zm0 3l-10-5v10l10 5 10-5V7l-10 5z"/></svg>
+        <span>Optimizăm viața clienților prin soluții eficiente</span>
+      </div>
+      <h1>AQUILO MANAGEMENT SRL — Lider recunoscut în <em>generarea și distribuția energiei electrice</em></h1>
+      <p class="lead">
+        Proiectăm, construim și operăm infrastructură energetică sigură, de la parcuri fotovoltaice și stații
+        de transformare până la digitalizarea operării în SCADA/EMS. Livrăm MW reali în rețea, cu pierderi reduse,
+        disponibilitate ridicată și conformitate completă ANRE/Transelectrica.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#servicii" aria-label="vezi serviciile noastre">Vezi serviciile</a>
+        <button class="btn-outline" type="button" data-open-modal="contact" aria-label="deschide formular de contact">Solicită o discuție tehnică</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="despre" aria-label="despre companie">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Cine suntem</div>
+          <h2 class="title">Echipă de ingineri orientată pe rezultate măsurabile în MW și SAIDI</h2>
+          <p class="subtitle">
+            Înființată în București, AQUILO MANAGEMENT SRL furnizează soluții end-to-end pentru industria energetică:
+            dezvoltare de capacități de producție, modernizarea liniilor de transport și distribuție, precum și
+            operare și mentenanță pe termen lung. Proiectele noastre sunt construite pe analize de flux de sarcină,
+            studii de protecții și selecții, calcul de scurt-circuit și modelare digitală a rețelei.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card" role="article">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          </div>
+          <h3>Expertiză pe întreg lanțul energetic</h3>
+          <p>
+            De la dimensionarea invertorului și planul de cablare DC/AC pentru parcuri solare, la
+            modernizarea stațiilor de 110/20kV, oferim design, execuție și punere în funcțiune,
+            cu management de proiect certificat și controlul calității pe fiecare etapă.
+          </p>
+        </div>
+
+        <div class="card" role="article">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 1l3 7h7l-5.7 4.1L18 21l-6-4-6 4 1.7-8.9L2 8h7z"/></svg>
+          </div>
+          <h3>Conformitate și siguranță</h3>
+          <p>
+            Respectăm codurile tehnice, normativele I7/2011, PE 116/2014 și standardele IEC, cu
+            documentație As-Built și instruirea personalului clientului. Siguranța muncii este integrată în
+            metodologiile noastre, cu zero incidente LTIF în proiectele din 2023–2025.
+          </p>
+        </div>
+
+        <div class="card" role="article">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 6a6 6 0 100 12 6 6 0 000-12zm8-3h-3l-2-2H9L7 3H4a2 2 0 00-2 2v3h20V5a2 2 0 00-2-2z"/></svg>
+          </div>
+          <h3>Digitalizare operațională</h3>
+          <p>
+            Implementăm SCADA/EMS, telemetrie IEC-104/61850, platforme IoT pentru monitorizarea transformatoarelor
+            și algoritmi de predicție a consumului. Deciziile devin rapide și bazate pe date, cu rapoarte automate
+            privind disponibilitatea, pierderile și indicatorii SAIDI/SAIFI.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="servicii" aria-label="servicii și soluții">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Soluții pentru utilități și producători</div>
+          <h2 class="title">De la MW instalați la kWh facturați — servicii care stau în picioare</h2>
+          <p class="subtitle">
+            Oferim o suită coerentă de servicii care rezolvă probleme reale din teren, nu doar din documentații.
+            Fiecare propunere include ipoteze transparente, diagrame electrice, liste de materiale și plan
+            de testare FAT/SAT. Mai jos este un rezumat al celor mai solicitate trei soluții.
+          </p>
+        </div>
+        <button class="btn-primary" type="button" data-open-modal="contact" aria-label="solicită ofertă">Cere ofertă</button>
+      </div>
+
+      <div class="grid grid-3">
+        <article class="card">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M11 21h-1v-6H4l8-12 8 12h-6v6h-1z"/></svg>
+          </div>
+          <h3>Proiectare & EPC pentru parcuri fotovoltaice</h3>
+          <p>
+            Elaborăm layout-uri optime pe terenuri neregulate, alegem structuri fixe sau tracker în
+            funcție de LCOE, dimensionăm cabluri pentru pierderi &lt;1,5% și integrăm inversoare
+            string/central la niveluri de 0,8–50 MWp.
+          </p>
+          <ul class="list" aria-label="elemente cheie">
+            <li>Studiu de racordare, calcul curenți de defect, selectivitate protecții</li>
+            <li>Stație de 110/20 kV cu celule GIS, protecții digitale și sistem DC redundant</li>
+            <li>Plan O&M: curățare, termografie, KPI performanță PR &gt; 80%</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M2 12l5-3v6l-5-3zm7 0l5-3v6l-5-3zm7 0l6-3v6l-6-3z"/></svg>
+          </div>
+          <h3>Modernizare linii și stații de transport</h3>
+          <p>
+            Înlocuim conductoare convenționale cu HTLS, refacem izolarea, montăm
+            OPGW pentru comunicații și implementăm scheme de protecție diferențială
+            pe linii de 110 kV pentru limitarea timpilor de deconectare.
+          </p>
+          <ul class="list" aria-label="beneficii modernizare">
+            <li>Creștere capacitate termică la +35% fără noi coridoare</li>
+            <li>Sisteme 61850, gateway redundant și servers NTP dedicați</li>
+            <li>Raport complet de încercări și buletine PRAM</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 3h18v4H3V3zm0 7h18v4H3v-4zm0 7h18v4H3v-4z"/></svg>
+          </div>
+          <h3>Operare, Mentenanță & Dispatching 24/7</h3>
+          <p>
+            Preluăm operarea activelor energetice prin SLA-uri clare, cu echipe mobile și dispecerat
+            propriu. Monitorizăm parametrii critici, preîntâmpinăm defecte și optimizăm costurile
+            prin mentenanță predictivă bazată pe date.
+          </p>
+          <ul class="list" aria-label="ce include serviciul O&M">
+            <li>Supraveghere SCADA, alarmare și intervenție în &lt;90 min</li>
+            <li>Rapoarte lunare cu SAIDI/SAIFI și analiza incidentelor</li>
+            <li>Stoc minim de piese critice și audit anual de performanță</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Differentiation / Why us -->
+  <section id="diferenta" class="stripe" aria-label="de ce să alegi aquello">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">De ce Aquilo</div>
+          <h2 class="title">Trei lucruri care ne diferențiază în teren, nu doar pe hârtie</h2>
+          <p class="subtitle">
+            Clienții ne aleg pentru rezultatele cuantificabile și pentru grija față de detalii. Fiecare proiect
+            este tratat ca o investiție proprie — ne asumăm disponibilitatea, eficiența și închiderea documentară.
+          </p>
+        </div>
+        <a class="btn-outline" href="#studii" aria-label="derulează pentru detalii">Mai multe detalii</a>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 21l-7-7 2.5-2.5L9 16l10.5-10.5L22 8z"/></svg></div>
+          <h3>Performanță contractată</h3>
+          <p>
+            KPI-urile nu sunt un apendice; sunt incluse în ofertă: PR, pierderi în rețea,
+            timp mediu de remediere și disponibilitate anuală. Penalizări și bonusuri
+            stabilite transparent, pentru o colaborare sănătoasă.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10V7h-2v7h6v-2h-4z"/></svg></div>
+          <h3>Proiecte livrate mai repede</h3>
+          <p>
+            Procurement integrat cu furnizori validați, echipe de șantier proprii și protocoale
+            de testare standardizate reduc durata de implementare cu 15–25% față de media pieței,
+            fără compromis în calitate.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v4H4zM4 10h16v10H4z"/></svg></div>
+          <h3>Digital twin pentru fiecare activ</h3>
+          <p>
+            Predăm modele digitale actualizate (BIM/ETAP) cu scenarii de operare, astfel
+            încât departamentele tehnice pot simula viitoare extinderi, manevre sau variații
+            de sarcină, reducând riscurile operaționale.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="proces" aria-label="cum lucrăm">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Cum transformăm planurile în energie</div>
+          <h2 class="title">Proces simplu, cu livrabile clare pe fiecare etapă</h2>
+          <p class="subtitle">
+            Metodologia noastră reduce fricțiunile: stakeholderi aliniați, trasee de aprobare scurte,
+            audit tehnic și control financiar la zi. Toate documentele sunt accesibile clientului în portalul
+            nostru, cu istoricul reviziilor și semnături electronice.
+          </p>
+        </div>
+        <button class="btn-primary" type="button" data-open-modal="contact" aria-label="începe colaborarea">Începe un proiect</button>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card step" role="region" aria-label="etapa 1">
+          <div class="num" aria-hidden="true">1</div>
+          <div>
+            <h3>Analiză & Studiu de fezabilitate</h3>
+            <p>
+              Colectăm datele sitului, curbele de sarcină și restricțiile de rețea. Rulăm
+              simulări de flux de putere și verificăm scenarii N-1. Livrabil: raport SF,
+              diagrame unifilare preliminare și CAPEX/OPEX estimat.
+            </p>
+          </div>
+        </div>
+        <img class="arrow" alt="săgeată proces" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='34' viewBox='0 0 48 34'%3E%3Cpath fill='%238aa0bc' d='M0 17h40l-6-6 2-2 10 9-10 9-2-2 6-6H0z'/%3E%3C/svg%3E" />
+        <div class="card step" role="region" aria-label="etapa 2">
+          <div class="num" aria-hidden="true">2</div>
+          <div>
+            <h3>Proiectare Detaliată & Execuție</h3>
+            <p>
+              Realizăm proiecte pentru autorizare și execuție, achiziții,
+              lucrări civile/elec­trice și punere în funcțiune. Livrabil: planuri As-Built,
+              buletine de încercare, setări protecții și training operatori.
+            </p>
+          </div>
+        </div>
+        <img class="arrow" alt="săgeată proces" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='34' viewBox='0 0 48 34'%3E%3Cpath fill='%238aa0bc' d='M0 17h40l-6-6 2-2 10 9-10 9-2-2 6-6H0z'/%3E%3C/svg%3E" />
+        <div class="card step" role="region" aria-label="etapa 3">
+          <div class="num" aria-hidden="true">3</div>
+          <div>
+            <h3>Operare & Mentenanță</h3>
+            <p>
+              SCADA 24/7, întreținere preventivă și predictivă, intervenții la defect
+              și optimizarea performanței. Livrabil: rapoarte lunare, audit anual și
+              plan de îmbunătățire continuă, cu obiective KPI contractate.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission / Goals -->
+  <section id="studii" aria-label="misiune și obiective">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Misiune & Obiective</div>
+          <h2 class="title">Energie fiabilă, rețele mai inteligente, amprentă redusă</h2>
+          <p class="subtitle">
+            Misiunea noastră este să accelerăm tranziția energetică a României prin integrarea producției
+            regenerabile, întărirea rețelelor și digitalizarea utilităților. Obiectivele pe care ni le-am stabilit
+            până în 2030 sunt concrete și urmărite trimestrial.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>≥ 1 GWp integrați</h3>
+          <p>Alături de parteneri, vizăm integrarea a peste 1 GWp de capacități noi fotovoltaice și eoliene în SEN,
+            cu soluții de stocare distribuită pentru flexibilitate și echilibrare.</p>
+        </div>
+        <div class="card">
+          <h3>-20% pierderi tehnice</h3>
+          <p>Program de modernizare a liniilor de medie tensiune, reglaje de tensiune și compensare reactivă
+            pentru reducerea pierderilor în zonele urbane și rurale.</p>
+        </div>
+        <div class="card">
+          <h3>Reziliență ridicată</h3>
+          <p>Planuri de contingență și arhitecturi redundante de comunicații pentru a menține alimentarea
+            chiar și în condiții meteo severe ori incidente regionale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" aria-label="contact">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Hai să discutăm tehnic</div>
+          <h2 class="title">Trimite-ne specificațiile proiectului tău</h2>
+          <p class="subtitle">
+            Conform ghidurilor Apple pentru confidențialitate, nu solicităm numărul de telefon în formular.
+            Comunicarea se face exclusiv prin e-mail. După trimitere, vei primi un mesaj de confirmare și
+            un răspuns în maxim 24–48 de ore lucrătoare.
+          </p>
+        </div>
+        <button class="btn-primary" type="button" data-open-modal="contact">Deschide formularul</button>
+      </div>
+
+      <div class="contact-card card">
+        <div>
+          <h3>Detalii companie</h3>
+          <p><strong>Nume legal:</strong> AQUILO MANAGEMENT SRL</p>
+          <p><strong>Adresă:</strong> B-DUL UNIRII NR. 23, BL. 13, SC. 1, ET. 6, AP. 16, SECTORUL 4, București</p>
+          <p>
+            <strong>E-mail:</strong>
+            <a href="mailto:traian@aquilomanagementsrl.pro" rel="nofollow">traian@aquilomanagementsrl.pro</a>
+          </p>
+          <p class="notice">
+            Datele tale sunt utilizate strict pentru a răspunde solicitării. Nu folosim urmărire cross-site, nu vindem
+            informații și respectăm principiile minimizării datelor.
+          </p>
+          <button class="btn-outline" type="button" data-open-modal="contact">Scrie-ne un mesaj</button>
+        </div>
+        <div class="card">
+          <h3>Întrebări frecvente</h3>
+          <ul class="list">
+            <li>Preluăm proiecte greenfield și brownfield (rehabilitări) între 0,8–200 MW.</li>
+            <li>Lucrăm cu standarde IEC/IEEE/ANRE și livrăm documentație completă As-Built.</li>
+            <li>Putem oferi servicii de dispecerizare și O&M pe termen lung cu SLA.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="container">
+      <p><strong>&copy; <span id="year"></span> AQUILO MANAGEMENT SRL</strong> — Generare, Transport și Distribuție energie electrică.</p>
+      <p>Adresă: B-DUL UNIRII NR. 23, BL. 13, SC. 1, ET. 6, AP. 16, SECTORUL 4, București • E-mail:
+        <a href="mailto:traian@aquilomanagementsrl.pro" rel="nofollow">traian@aquilomanagementsrl.pro</a>
+      </p>
+      <p class="notice">Acest site respectă regulile Apple pentru confidențialitate: nu colectăm numere de telefon, nu
+        solicităm date excesive, oferim opțiuni clare de consimțământ și informăm transparent utilizatorii.</p>
+    </div>
+  </footer>
+
+  <!-- Contact Modal -->
+  <div class="modal-backdrop" id="modal-contact" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-hidden="true">
+    <div class="modal">
+      <header>
+        <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
+          <h3 id="contact-title" style="margin:0">Trimite-ne o solicitare</h3>
+          <button class="close" type="button" data-close-modal aria-label="Închide fereastra">&times;</button>
+        </div>
+      </header>
+      <div class="content">
+        <form id="contact-form" novalidate>
+          <div class="form-grid">
+            <div>
+              <label for="nume">Nume complet</label>
+              <input id="nume" name="nume" type="text" autocomplete="name" placeholder="Ex.: Andrei Pop" required aria-required="true" />
+            </div>
+            <div>
+              <label for="email">E-mail de contact</label>
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="adresa@companie.ro" required aria-required="true" />
+            </div>
+            <div>
+              <label for="companie">Companie</label>
+              <input id="companie" name="companie" type="text" placeholder="Denumirea companiei" />
+            </div>
+            <div>
+              <label for="subiect">Subiect</label>
+              <select id="subiect" name="subiect" aria-label="subiectul mesajului">
+                <option value="EPC">EPC parc fotovoltaic</option>
+                <option value="Modernizare">Modernizare stație/linii</option>
+                <option value="O&M">Operare & Mentenanță</option>
+                <option value="Altele" selected>Alte colaborări</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="mesaj">Detalii tehnice / descriere</label>
+          <textarea id="mesaj" name="mesaj" placeholder="Descrie pe scurt proiectul: locație, putere, stadiu, calendar, livrabile așteptate..." required aria-required="true"></textarea>
+
+          <div class="checkbox">
+            <input id="consimtamant" type="checkbox" required aria-required="true" />
+            <label for="consimtamant">Sunt de acord ca AQUILO MANAGEMENT SRL să îmi prelucreze datele furnizate pentru a răspunde solicitării mele. Înțeleg că nu se colectează numărul de telefon și comunicarea se face doar prin e-mail.</label>
+          </div>
+
+          <div class="submit">
+            <button class="btn-primary" type="submit" aria-label="trimite mesajul">Trimite mesajul</button>
+            <span class="notice" aria-live="polite">Răspundem în 24–48h lucrătoare.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    ✅ Mesajul tău a fost trimis. Îți mulțumim! Te vom contacta prin e-mail.
+  </div>
+
+  <script>
+    // Anul curent în footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll for internal anchors (enhanced, accessible)
+    document.querySelectorAll('a[href^="#"]').forEach(function(link){
+      link.addEventListener('click', function(e){
+        const id = this.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+          history.pushState(null, '', '#'+id);
+        }
+      });
+    });
+
+    // Modal management
+    const backdrop = document.getElementById('modal-contact');
+    const toast = document.getElementById('toast');
+
+    function openModal(){
+      backdrop.style.display='grid';
+      backdrop.setAttribute('aria-hidden','false');
+      // Focus the first input for accessibility
+      setTimeout(()=>{ const first = document.getElementById('nume'); if(first) first.focus(); }, 50);
+    }
+    function closeModal(){
+      backdrop.style.display='none';
+      backdrop.setAttribute('aria-hidden','true');
+    }
+    document.querySelectorAll('[data-open-modal="contact"]').forEach(btn=>{
+      btn.addEventListener('click', openModal);
+    });
+    document.querySelectorAll('[data-close-modal]').forEach(btn=>{
+      btn.addEventListener('click', closeModal);
+    });
+    backdrop.addEventListener('click', function(e){
+      if(e.target === backdrop) closeModal();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeModal();
+    });
+
+    // Form submission (no phone number collected — Apple guideline friendly)
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      // Basic validation
+      const valid = form.reportValidity ? form.reportValidity() : true;
+      if(!valid) return;
+
+      // Simulate async submission without sending data anywhere (demo-safe)
+      setTimeout(function(){
+        closeModal();
+        toast.style.display='block';
+        setTimeout(()=>{ toast.style.display='none'; }, 4000);
+        form.reset();
+      }, 400);
+    });
+  </script>
+</body>
+</html>
